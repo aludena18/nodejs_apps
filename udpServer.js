@@ -7,8 +7,7 @@ const socket = dgram.createSocket("udp4");
 //RECIBE MENSAJES DEL CLIENTE
 socket.on("message", (msg, rinfo) => {
     buff = msg;
-    console.log(`server got ${buff.length} bytes : ${String2Hex(buff)} / from ${rinfo.address}:${rinfo.port}`);
-
+    console.log(`server got ${buff.length} bytes : ${String2Hex(buff)} / from ${rinfo.address}:${rinfo.port} Evnt:${buff[50]}`);
     sendAck(buff, rinfo);
 });
 
@@ -46,7 +45,7 @@ function parseFunction(data,i,f){
 function String2Hex(tmp) {
     let str = '';
     for(let i = 0; i < tmp.length; i++) {
-        str += tmp[i].toString() + " ";
+        str += tmp[i].toString(16) + " ";
     }
     return str;
 }
