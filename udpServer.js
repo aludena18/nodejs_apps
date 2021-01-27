@@ -6,7 +6,7 @@ const socket = dgram.createSocket("udp4");
 
 socket.on("message", (msg, rinfo) => {
     buff = msg;
-    console.log(`server got: ${String2Hex(msg.toString())} / from ${rinfo.address}:${rinfo.port}`);
+    console.log(`server got: ${String2Hex(buff)} / from ${rinfo.address}:${rinfo.port}`);
     console.log("id = " + parseFunction(buff,0,4));
 });
 
@@ -21,7 +21,7 @@ function parseFunction(data,i,f){
 function String2Hex(tmp) {
     let str = '';
     for(let i = 0; i < tmp.length; i++) {
-        str += tmp[i].charCodeAt(0).toString(16) + " ";
+        str += tmp[i].toString(16) + " ";
     }
     return str;
 }
