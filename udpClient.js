@@ -24,7 +24,7 @@ var s = dgram.createSocket('udp4');
 
 //ENVIA UN MENSAJE AL SERVER EN INTERVALO DE n SEGS
 let sendMsg = setInterval(()=>{
-    s.send(msg1, 31000, 'localhost');
+    s.send(msg1, 50115, 'localhost');
 },5000);
 
 //RECIBE UN MENSAJE DESDE EL SERVER
