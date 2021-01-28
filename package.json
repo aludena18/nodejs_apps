@@ -1,0 +1,23 @@
+{
+  "name": "servers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "udpServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aludena18/nodejs_apps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aludena18/nodejs_apps/issues"
+  },
+  "homepage": "https://github.com/aludena18/nodejs_apps#readme",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "net": "^1.0.2"
+  }
+}

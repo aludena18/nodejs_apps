@@ -1,0 +1,56 @@
+
+const net = require('net');
+
+const port = 50115
+
+// A use-once date server. Clients get the date on connection and that's it!
+const server = net.createServer((socket) => {
+  socket.on('data',(data)=>{
+    //console.log(data.toString())
+    processData(data);
+    socket.write(ack(data))
+  });
+  socket.on('end', () => {
+    console.log('Closed');
+  });
+  socket.on('error', function(err) {
+    console.log(`Error: ${err}`);
+});
+  
+});
+
+function processData(d){
+    console.log(`server got ${d.length} bytes : ${String2Hex(d)} / Evnt:${d[50]}`);
+}
+
+function String2Hex(tmp) {
+    let str = '';
+    for(let i = 0; i < tmp.length; i++) {
+        str += tmp[i].toString(16) + " ";
+    }
+    return str;
+}
+
+function ack(data){
+    let ackArray=[
+        data[0],
+        data[1],
+        data[2],data[3],data[4],data[5],data[6],
+        data[7],
+        data[8],
+        2,
+        1,
+        data[11],data[12],
+        data[10],
+        0,
+        0,
+        0,0,0
+    ]
+
+    return Buffer.from(ackArray);
+}
+
+
+
+server.listen(port);
+console.log("Servidor TCP iniciado en el puerto : " + port)
