@@ -43,7 +43,7 @@ function ack(data){
         2,
         1,
         data[i+11],data[i+12],
-        0,//data[i+10],
+        data[i+10],
         0,
         0,
         0,0,0
