@@ -54,6 +54,6 @@ function ack(data){
 }
 
 
-
+server.maxConnections = 20;
 server.listen(port);
 console.log("Servidor TCP iniciado en el puerto : " + port)
