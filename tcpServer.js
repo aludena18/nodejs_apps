@@ -9,6 +9,7 @@ const server = net.createServer((socket) => {
     //console.log(data.toString())
     processData(data);
     socket.write(ack(data))
+    socket.pipe(socket);
   });
   socket.on('end', () => {
     console.log('Closed');
