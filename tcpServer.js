@@ -20,7 +20,7 @@ const server = net.createServer((socket) => {
 });
 
 function processData(d){
-    console.log(`server got ${d.length} bytes : ${String2Hex(d)} / Evnt:${d[50]}`);
+    console.log(`server got ${d.length} bytes : ${String2Hex(d)} / Evnt:${d[50+4]}`);
 }
 
 function String2Hex(tmp) {
@@ -32,16 +32,17 @@ function String2Hex(tmp) {
 }
 
 function ack(data){
+  let i = 4
     let ackArray=[
-        data[0],
-        data[1],
-        data[2],data[3],data[4],data[5],data[6],
-        data[7],
-        data[8],
+        data[i],
+        data[i+1],
+        data[i+2],data[i+3],data[i+4],data[i+5],data[i+6],
+        data[i+7],
+        data[i+8],
         2,
         1,
-        data[11],data[12],
-        data[10],
+        data[i+11],data[i+12],
+        data[i+10],
         0,
         0,
         0,0,0
