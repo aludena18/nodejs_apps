@@ -10,6 +10,7 @@ const server = net.createServer((socket) => {
     processData(data);
     if(data[13]==1){
       socket.write(ack(data));
+      socket.pipe(socket);
     }
     //socket.pipe(socket);
   });
