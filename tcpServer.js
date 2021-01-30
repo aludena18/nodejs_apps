@@ -11,6 +11,7 @@ const server = net.createServer((socket) => {
     if(data[13]==1){
       socket.write(ack(data));
       socket.pipe(socket);
+      console.log("ACk enviado = " + String2Hex(ack(data)));
     }
     //socket.pipe(socket);
   });
