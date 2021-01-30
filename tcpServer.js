@@ -21,7 +21,7 @@ const server = net.createServer((socket) => {
 });
 
 function processData(d){
-    console.log(`server got ${d.length} bytes : ${String2Hex(d)} / Evnt:${d[50+4]}`);
+    console.log(`\nserver got ${d.length} bytes : ${String2Hex(d)}`);
 }
 
 function String2Hex(tmp) {
