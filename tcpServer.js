@@ -8,7 +8,9 @@ const server = net.createServer((socket) => {
   socket.on("data", (data) => {
     //console.log(data.toString())
     processData(data);
-    socket.write(ack(data));
+    if(data[13]==1){
+      socket.write(ack(data));
+    }
     socket.pipe(socket);
   });
   socket.on("end", () => {
@@ -38,23 +40,16 @@ function ack(data) {
     //data[0],data[1],data[2],data[3],
     data[i],
     data[i + 1],
-    data[i + 2],
-    data[i + 3],
-    data[i + 4],
-    data[i + 5],
-    data[i + 6],
+    data[i + 2], data[i + 3], data[i + 4], data[i + 5], data[i + 6],
     data[i + 7],
     data[i + 8],
     2,
     1,
-    data[i + 11],
-    data[i + 12],
+    data[i + 11], data[i + 12],
     data[i + 10],
     0,
     0,
-    0,
-    0,
-    0,
+    0, 0, 0,
   ];
 
   return Buffer.from(ackArray);
