@@ -11,7 +11,7 @@ const server = net.createServer((socket) => {
     if(data[13]==1){
       socket.write(ack(data));
     }
-    socket.pipe(socket);
+    //socket.pipe(socket);
   });
   socket.on("end", () => {
     console.log("Closed");
