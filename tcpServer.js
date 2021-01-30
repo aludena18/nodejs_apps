@@ -4,7 +4,7 @@ const port = 50115;
 
 // A use-once date server. Clients get the date on connection and that's it!
 const server = net.createServer((socket) => {
-  socket.setMaxListeners(20)
+  socket.setMaxListeners(0)
   socket.on("data", (data) => {
     //console.log(data.toString())
     processData(data);
