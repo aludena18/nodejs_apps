@@ -4,13 +4,13 @@ const port = 50115;
 
 // A use-once date server. Clients get the date on connection and that's it!
 const server = net.createServer((socket) => {
-  //socket.setMaxListeners(0)
+  socket.setMaxListeners(0)
 
   socket.on("data", (data) => {
     processData(data);
     if(data[13]==1){
+      socket.pipe(socket);
       socket.write(ack(data));
-      socket.pipe(process.stdout);
       console.log("ACk enviado = " + String2Hex(ack(data)));
     }
     //socket.pipe(socket);
