@@ -6,12 +6,10 @@ const port = 50115;
 const server = net.createServer((socket) => {
   socket.setMaxListeners(0)
 
-  socket.once("data", (data) => {
+  socket.on("data", (data) => {
     processData(data);
     if(data[13]==1){
       socket.write(ack(data),()=>{
-        socket.pipe(socket);
-        socket.pipe(socket);
         socket.pipe(socket);
         console.log("pipe")
       });
@@ -32,6 +30,7 @@ const server = net.createServer((socket) => {
   });
 
   console.log("\nClient connected");
+  //socket.pipe();
   //console.log("max listeners = " + socket.getMaxListeners())
 });
 
@@ -73,7 +72,5 @@ function ack(data) {
 //server.maxConnections = 20;
 server.listen({
   port: 50115,
-  readableAll: true,
-  writableAll: true
 });
 console.log("Servidor TCP iniciado en el puerto : " + port);
