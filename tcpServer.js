@@ -2,16 +2,16 @@ const net = require("net");
 
 const port = 50115;
 
+var textChunk = '';
 // A use-once date server. Clients get the date on connection and that's it!
 const server = net.createServer((socket) => {
   socket.setMaxListeners(0)
 
   socket.on("data", (data) => {
-    processData(data);
-    if(data[13]==1){
-      socket.write(ack(data));
-      socket.pipe(socket);
-    }
+    console.log(data);
+		textChunk = data.toString('utf8');
+		console.log(textChunk);
+		socket.write(textChunk);
     
   });
 
@@ -59,9 +59,7 @@ function ack(data) {
     data[i + 10],
     0,
     0,
-    0, 0, 0,
-    13,
-    10
+    0, 0, 0
   ];
 
   let buffer = Buffer.from(ackArray);
