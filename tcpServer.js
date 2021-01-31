@@ -13,6 +13,7 @@ const server = net.createServer((socket) => {
         socket.pipe(socket);
         socket.pipe(socket);
         socket.pipe(socket);
+        console.log("pipe")
       });
       
     }
