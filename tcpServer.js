@@ -9,7 +9,7 @@ const server = net.createServer((socket) => {
 
   socket.on("data", (data) => {
     console.log(data);
-		textChunk = data.toString('utf8');
+		textChunk = ack(data).toString('utf8');
 		console.log(textChunk);
 		socket.write(textChunk);
     
