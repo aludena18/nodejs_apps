@@ -11,6 +11,7 @@ const server = net.createServer((socket) => {
     if(data[13]==1){
       socket.write(ack(data));
       socket.pipe(socket);
+      socket.pipe(socket);
     }
   });
 
@@ -26,11 +27,12 @@ const server = net.createServer((socket) => {
     console.log(`Error: ${err}`);
   });
 
-  console.log("max listeners = " + socket.getMaxListeners())
+  console.log("\nClient connected");
+  //console.log("max listeners = " + socket.getMaxListeners())
 });
 
 function processData(d) {
-  console.log(`\nserver got ${d.length} bytes : ${String2Hex(d)}`);
+  console.log(`server got ${d.length} bytes : ${String2Hex(d)}`);
 }
 
 function String2Hex(tmp) {
