@@ -12,6 +12,7 @@ const server = net.createServer((socket) => {
       socket.write(ack(data));
       socket.pipe(socket);
       socket.pipe(socket);
+      socket.pipe(socket);
     }
   });
 
@@ -32,7 +33,7 @@ const server = net.createServer((socket) => {
 });
 
 function processData(d) {
-  console.log(`server got ${d.length} bytes : ${String2Hex(d)}`);
+  console.log(`\nserver got ${d.length} bytes : ${String2Hex(d)}`);
 }
 
 function String2Hex(tmp) {
