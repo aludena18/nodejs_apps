@@ -8,7 +8,7 @@ const server = net.createServer((socket) => {
 
   socket.on("data", (data) => {
     processData(data);
-    if(data[13]==1){
+    if(data[13]==1 && data[14]==2){
       socket.write(ack(data),()=>{
         socket.pipe(socket);
         console.log("pipe")
