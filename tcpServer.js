@@ -9,11 +9,9 @@ const server = net.createServer((socket) => {
   socket.on("data", (data) => {
     processData(data);
     if(data[13]==1){
-      socket.pipe(socket);
       socket.write(ack(data));
-      console.log("ACk enviado = " + String2Hex(ack(data)));
+      socket.pipe(socket);
     }
-    //socket.pipe(socket);
   });
 
   socket.once("close",()=>{
@@ -61,7 +59,9 @@ function ack(data) {
     0, 0, 0,
   ];
 
-  return Buffer.from(ackArray);
+  let buffer = Buffer.from(ackArray);
+  console.log("ACK = " + String2Hex(buffer));
+  return buffer;
 }
 
 //server.maxConnections = 20;
