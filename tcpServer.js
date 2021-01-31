@@ -10,7 +10,7 @@ const server = net.createServer((socket) => {
     processData(data);
     if(data[13]==1){
       socket.write(ack(data));
-      //socket.pipe(socket);
+      socket.pipe(process.stdout);
       console.log("ACk enviado = " + String2Hex(ack(data)));
     }
     //socket.pipe(socket);
