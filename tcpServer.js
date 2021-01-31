@@ -5,8 +5,8 @@ const port = 50115;
 // A use-once date server. Clients get the date on connection and that's it!
 const server = net.createServer((socket) => {
   socket.setMaxListeners(0)
+
   socket.on("data", (data) => {
-    //console.log(data.toString())
     processData(data);
     if(data[13]==1){
       socket.write(ack(data));
@@ -15,12 +15,19 @@ const server = net.createServer((socket) => {
     }
     //socket.pipe(socket);
   });
+
+  socket.once("close",()=>{
+    console.log("Conection close")
+  })
+
   socket.on("end", () => {
-    console.log("Closed");
+    console.log("Connection end");
   });
+
   socket.on("error", function (err) {
     console.log(`Error: ${err}`);
   });
+
   console.log("max listeners = " + socket.getMaxListeners())
 });
 
@@ -57,6 +64,6 @@ function ack(data) {
   return Buffer.from(ackArray);
 }
 
-server.maxConnections = 20;
+//server.maxConnections = 20;
 server.listen(port);
 console.log("Servidor TCP iniciado en el puerto : " + port);
