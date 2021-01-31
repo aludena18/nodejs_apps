@@ -14,7 +14,7 @@ const server = net.createServer((socket) => {
         console.log("pipe")
       });
     }
-    socket.end();
+    
   });
 
   socket.once("close",()=>{
