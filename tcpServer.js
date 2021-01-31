@@ -6,7 +6,7 @@ const port = 50115;
 const server = net.createServer((socket) => {
   socket.setMaxListeners(0)
 
-  socket.on("data", (data) => {
+  socket.once("data", (data) => {
     processData(data);
     if(data[13]==1){
       socket.write(ack(data),()=>{
