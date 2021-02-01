@@ -10,7 +10,7 @@ server.on('connection',(socket)=>{
 
   socket.on('data',(data)=>{
     var arrByte = Uint8Array.from(data);
-    console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
+    console.log(`\n${new Date()} (${arrByte.length} bytes) : ${String2Hex(arrByte)}`)
     
     if(data[13]==1){
       socket.pipe(socket)
