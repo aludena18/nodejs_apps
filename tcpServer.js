@@ -6,6 +6,7 @@ server.on('connection',(socket)=>{
 
   var remoteAddress = socket.remoteAddress + ":" + socket.remotePort;
   console.log('Nuevo cliente conectado %s',remoteAddress);
+  socket.pipe(socket);
 
   socket.on('data',(data)=>{
     var arrByte = Uint8Array.from(data);
