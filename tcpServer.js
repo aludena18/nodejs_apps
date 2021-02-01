@@ -12,10 +12,10 @@ server.on('connection',(socket)=>{
     console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
     
     if(data[13]==1){
+      socket.pipe(socket)
       socket.write(ack(data),()=>{
         console.log('ACK Eviado!!')
       })
-      socket.pipe(socket)
     }
 
     if(data[13]==2){
