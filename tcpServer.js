@@ -1,48 +1,39 @@
-const net = require("net");
+var net = require('net');
 
-const port = 50115;
+var server = net.createServer();
 
-var textChunk = '';
-// A use-once date server. Clients get the date on connection and that's it!
-const server = net.createServer((socket) => {
-  socket.setMaxListeners(0)
+server.on('connection',(socket)=>{
 
-  socket.on("data", (data) => {
-    console.log(data);
-		textChunk = ack(data).toString('utf8');
-		console.log(textChunk);
-		socket.write(textChunk);
-    
-  });
+  var remoteAddress = socket.remoteAddress + ":" + socket.remotePort;
+  console.log('Nuevo cliente conectado %s',remoteAddress);
 
-  socket.once("close",()=>{
-    console.log("Conection close")
+  socket.on('data',(data)=>{
+    var arrByte = Uint8Array.from(data);
+    console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
+    socket.write(ack(arrByte),()=>{
+      console.log('Ack Enviado')
+    })
   })
 
-  socket.on("end", () => {
-    console.log("Connection end");
-  });
+  socket.once('close',()=>{
 
-  socket.on("error", function (err) {
-    console.log(`Error: ${err}`);
-  });
+  })
 
-  console.log("\nClient connected");
-  //socket.pipe();
-  //console.log("max listeners = " + socket.getMaxListeners())
-});
+  socket.on('error',()=>{
 
-function processData(d) {
-  console.log(`\nserver got ${d.length} bytes : ${String2Hex(d)}`);
-}
+  })
 
-function String2Hex(tmp) {
-  let str = "";
-  for (let i = 0; i < tmp.length; i++) {
-    str += tmp[i].toString(16) + " ";
-  }
-  return str;
-}
+
+})
+
+server.listen(50115,()=>{
+  console.log('Servidor escuchando a %j',server.address())
+})
+
+
+
+
+//FUNCIONES COMPLEMENTARIAS CALAMP
 
 function ack(data) {
   let i = 4;
@@ -62,13 +53,15 @@ function ack(data) {
     0, 0, 0
   ];
 
-  let buffer = Buffer.from(ackArray);
+  let buffer = Uint8Array.from(ackArray);
   console.log("ACK = " + String2Hex(buffer));
   return buffer;
 }
 
-//server.maxConnections = 20;
-server.listen({
-  port: 50115,
-});
-console.log("Servidor TCP iniciado en el puerto : " + port);
+function String2Hex(tmp) {
+  let str = "";
+  for (let i = 0; i < tmp.length; i++) {
+    str += tmp[i].toString(16) + " ";
+  }
+  return str;
+}
