@@ -10,13 +10,11 @@ server.on('connection',(socket)=>{
   socket.on('data',(data)=>{
     var arrByte = Uint8Array.from(data);
     console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
-    /*socket.write(ack(arrByte),()=>{
+    socket.write(ack(arrByte),()=>{
+      socket.pipe(socket)
       console.log('Ack Enviado')
-    })*/
-    let client = new net.Socket()
-    socket.connect(socket.remotePort,socket.remoteAddress,function(){
-      socket.write(ack(arrByte))
     })
+    
   })
 
   socket.on('drain',()=>{
