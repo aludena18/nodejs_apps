@@ -10,10 +10,17 @@ server.on('connection',(socket)=>{
   socket.on('data',(data)=>{
     var arrByte = Uint8Array.from(data);
     console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
-    socket.write(ack(arrByte),()=>{
+    
+    if(data[13]==1){
+      socket.write(ack(data),()=>{
+        console.log('ACK Eviado!!')
+      })
       socket.pipe(socket)
-      console.log('Ack Enviado')
-    })
+    }
+
+    if(data[13]==2){
+      socket.unpipe(socket);
+    }
     
   })
 
@@ -35,8 +42,6 @@ server.on('connection',(socket)=>{
 server.listen(50115,()=>{
   console.log('Servidor escuchando a %j',server.address())
 })
-
-
 
 
 //FUNCIONES COMPLEMENTARIAS CALAMP
