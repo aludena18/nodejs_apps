@@ -10,17 +10,25 @@ server.on('connection',(socket)=>{
   socket.on('data',(data)=>{
     var arrByte = Uint8Array.from(data);
     console.log('Data desde %s : %s',remoteAddress,String2Hex(arrByte))
-    socket.write(ack(arrByte),()=>{
+    /*socket.write(ack(arrByte),()=>{
       console.log('Ack Enviado')
+    })*/
+    let client = new net.Socket()
+    socket.connect(socket.remotePort,socket.remoteAddress,function(){
+      socket.write(ack(arrByte))
     })
   })
 
-  socket.once('close',()=>{
+  socket.on('drain',()=>{
+    console.log('buffer is empty')
+  })
 
+  socket.once('close',()=>{
+    console.log('Socket is close')
   })
 
   socket.on('error',()=>{
-
+    
   })
 
 
