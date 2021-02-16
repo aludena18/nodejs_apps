@@ -16,11 +16,12 @@ server.on('connection',(socket)=>{
     console.log(`\n${new Date()} (${arrByte.length} bytes) : ${dataHex}`)
     
     if(data[13]==1){
-      socket.pipe(socket)
       socket.write(ack(data),()=>{
         console.log('ACK Eviado!!')
         socket.unpipe(socket);
       })
+      socket.pipe(socket)
+      console.log('ACK Escrito!!')
     }
 
     if(data[13]==2){
