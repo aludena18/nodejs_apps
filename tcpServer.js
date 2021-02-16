@@ -6,11 +6,14 @@ server.on('connection',(socket)=>{
 
   var remoteAddress = socket.remoteAddress + ":" + socket.remotePort;
   console.log('Nuevo cliente conectado %s',remoteAddress);
-  socket.pipe(socket);
+
+  //socket.pipe(socket);
 
   socket.on('data',(data)=>{
+    //let dataHex = data.toString('hex');
+    let dataHex = String2Hex(data);
     var arrByte = Uint8Array.from(data);
-    console.log(`\n${new Date()} (${arrByte.length} bytes) : ${String2Hex(arrByte)}`)
+    console.log(`\n${new Date()} (${arrByte.length} bytes) : ${dataHex}`)
     
     if(data[13]==1){
       socket.pipe(socket)
