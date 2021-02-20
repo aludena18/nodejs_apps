@@ -1,6 +1,12 @@
-var net = require('net');
+let net = require('net');
 
-var server = net.createServer();
+const TCP_SERVER_PORT = 50115;
+
+let server = net.createServer();
+server.listen(TCP_SERVER_PORT,()=>{
+  console.log('Servidor escuchando a %j',server.address())
+})
+
 
 server.on('connection',(socket)=>{
 
@@ -15,18 +21,12 @@ server.on('connection',(socket)=>{
     var arrByte = Uint8Array.from(data);
     console.log(`\n${new Date()} (${arrByte.length} bytes) : ${dataHex}`)
     
-    if(data[13]==1){
-      socket.write(ack(data),()=>{
-        console.log('ACK Eviado!!')
-        socket.unpipe(socket);
-      })
-      socket.pipe(socket)
-      console.log('ACK Escrito!!')
-    }
+    //if(data[13]==1){
+      socket.write(ack(data))
+    //}
 
-    if(data[13]==2){
-      //socket.unpipe(socket);
-    }
+    //if(data[13]==2){
+    //}
     
   })
 
@@ -38,16 +38,21 @@ server.on('connection',(socket)=>{
     console.log('Socket is close')
   })
 
-  socket.on('error',()=>{
-    
+  socket.on('end',()=>{
+    console.log('Socket is end')
+  })
+
+  socket.on('error',(e)=>{
+    console.log('Hay un error : ' + e)
   })
 
 
 })
 
-server.listen(50115,()=>{
-  console.log('Servidor escuchando a %j',server.address())
-})
+
+
+
+
 
 
 //FUNCIONES COMPLEMENTARIAS CALAMP
