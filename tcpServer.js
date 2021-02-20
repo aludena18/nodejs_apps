@@ -60,7 +60,7 @@ server.on('connection',(socket)=>{
 function ack(data) {
   let i = 4;
   let ackArray = [
-    //data[0],data[1],data[2],data[3],
+    data[i-4],data[i-3],data[i-2],data[i-1],
     data[i],
     data[i + 1],
     data[i + 2], data[i + 3], data[i + 4], data[i + 5], data[i + 6],
