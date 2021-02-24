@@ -43,6 +43,9 @@ client.on('data', function(data) {
 	console.log('Received: ' + String2Hex(data));
 	client.destroy(); // kill client after server's response
 });
+client.on("error", (e) => {
+    console.log("Hay un error : " + e);
+  });
 
 function String2Hex(tmp) {
     let str = '';
