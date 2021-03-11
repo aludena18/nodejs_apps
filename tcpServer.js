@@ -97,4 +97,5 @@ function String2Hex(tmp) {
     str += tmp[i].toString(16) + " ";
   }
   return str;
+  
 }
