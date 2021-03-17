@@ -41,6 +41,11 @@ function processData(skt,data){
 
     if(data[0]==0x78 && data[1]==0x78){
         console.log('Protocolo Concox')
+        
+        //Login Message Packet
+        if(data[3]==0x01){
+            console.log('Login Message')
+        }
     }
 }
 
