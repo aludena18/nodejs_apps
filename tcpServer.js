@@ -1,7 +1,7 @@
 let net = require("net");
 
 //Puerto TCP
-const TCP_SERVER_PORT = 50115;
+const TCP_SERVER_PORT = 50080;
 
 let server = net.createServer();
 server.listen(TCP_SERVER_PORT, () => {
