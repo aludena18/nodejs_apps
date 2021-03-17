@@ -1,5 +1,7 @@
 let net = require("net");
 
+import './libraries/crcLojack.js'
+
 //Puerto TCP
 const TCP_SERVER_PORT = 50080;
 
@@ -45,8 +47,15 @@ function processData(skt,data){
         //Login Message Packet
         if(data[3]==0x01){
             console.log('Login Message')
+            let loginResponse = getResponse(data[3],data[16],data[17]);
         }
     }
+}
+
+
+function getResponse(protocolNumber, infoSerialNumber1, infoSerialNumber2){
+    const tempData = Buffer.concat([0x05,protocolNumber,infoSerialNumber1,infoSerialNumber2],4)
+    const crc = CrcLojack.crc16X25Ccitt(tempData);
 }
 
 
