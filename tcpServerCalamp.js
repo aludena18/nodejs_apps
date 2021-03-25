@@ -70,7 +70,7 @@ function processData(skt, data){
   tipoMsj = msgType.readInt8(0)
   console.log("Tipo de Mensaje = " + tipoMsj)
   if(tipoMsj==MSG_EVENT_REPORT){
-    const event = data.subarray(50,51);
+    const event = data.subarray(54,55);
     console.log("Evento = " + event.readInt8(0));
   }
 
