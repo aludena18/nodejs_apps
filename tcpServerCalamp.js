@@ -33,8 +33,8 @@ server.on("connection", (socket) => {
   console.log("Nuevo cliente conectado %s", remoteAddress);
 
   socket.on("data", (data) => {
-    //let dataHex = data.toString('hex');
-    let dataHex = String2Hex(data);
+    let dataHex = data.toString('hex').toUpperCase()
+    //let dataHex = String2Hex(data);
     console.log(`\n${new Date()} (${data.length} bytes) : ${dataHex}`);
     
     processData(socket,data);
