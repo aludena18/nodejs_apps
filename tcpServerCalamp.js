@@ -67,7 +67,7 @@ function processData(skt, data){
   const msgType = data.subarray(14,15);
   const seqNumber = data.subarray(15,17);
 
-  console.log("Tipo de Mensaje = " + msgType)
+  console.log("Tipo de Mensaje = " + parseInt(msgType.toString()))
   if(msgType==MSG_EVENT_REPORT){
     const event = data.subarray(50,51);
     console.log("Evento = " + event);
