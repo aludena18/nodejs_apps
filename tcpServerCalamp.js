@@ -67,6 +67,12 @@ function processData(skt, data){
   const msgType = data.subarray(14,15);
   const seqNumber = data.subarray(15,17);
 
+  console.log("Tipo de Mensaje = " + msgType)
+  if(msgType==MSG_EVENT_REPORT){
+    const event = data.subarray(50,51);
+    console.log("Evento = " + event);
+  }
+
   if(srvType.readInt8(0)==SERVICE_ACKNOWLEDGED){
     let res = response(header,optionsHeader,seqNumber,msgType);
     skt.write(res);

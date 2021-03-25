@@ -1,0 +1,3 @@
+//mantener una conexión ssh activa
+ssh -o ServerAliveInterval=60 <user>@<ip>
+ssh -o ServerAliveInterval=60 root@172.104.251.31
